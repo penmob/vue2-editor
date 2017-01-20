@@ -53,12 +53,13 @@ export default {
         return false
       }
     },
-    isDisabled: {
+    readOnly: {
       type: Boolean,
       default () {
           return false
       }
-    }
+    },
+    theme: String
   },
 
   data: function () {
@@ -77,12 +78,11 @@ export default {
         toolbar: this.toolbar
       },
       placeholder: this.placeholder ? this.placeholder : '',
-      theme: 'snow'
+      readOnly: this.readOnly,
+      theme: this.theme ? this.theme : 'snow'
     });
 
     vm.editor = document.querySelector('.ql-editor')
-
-    vm.isDisabled ? vm.quill.disable() : vm.quill.enable();
 
     if ( vm.$refs.livePreview !== undefined || false ) {
 
