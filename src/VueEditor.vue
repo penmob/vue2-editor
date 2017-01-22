@@ -103,7 +103,10 @@ export default {
   watch: {
     editorContent: function () {
       this.editor.innerHTML = this.editorContent
-    }
+    },
+    readOnly: function () {
+      this.readOnly ? this.quill.disable() : this.quill.enable();
+    },
   },
 
   methods: {
