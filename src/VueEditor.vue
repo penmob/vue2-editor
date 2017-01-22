@@ -59,7 +59,25 @@ export default {
           return false
       }
     },
-    theme: String
+    theme: String,
+    addTempHighlight: {
+      type: Object,
+      default () {
+        return {
+          rangeIndex: null,
+          rangeLength: null,
+        }
+      }
+    },
+    addSuggestionHighlight: {
+      type: Object,
+      default () {
+        return {
+          rangeIndex: null,
+          rangeLength: null,
+        }
+      }
+    },
   },
 
   data: function () {
@@ -98,6 +116,36 @@ export default {
       });
 
     }
+
+    // register new highlight formats.
+    let Inline = Quill.import('blots/inline');
+
+    class tempHighlight extends Inline {
+        static create() {
+            return super.create();
+        }
+        static formats() {
+            return true;
+        }
+    }
+    tempHighlight.blotName = 'tempHighlight';
+    tempHighlight.className = 'temp-highlight';
+    tempHighlight.tagName = 'span';
+
+    class suggestionHighlight extends Inline {
+        static create() {
+            return super.create();
+        }
+        static formats() {
+            return true;
+        }
+    }
+    suggestionHighlight.blotName = 'suggestionHighlight';
+    suggestionHighlight.className = 'suggestion-highlight';
+    suggestionHighlight.tagName = 'span';
+
+    Quill.register(tempHighlight);
+    Quill.register(suggestionHighlight);
   },
 
   watch: {
@@ -106,6 +154,16 @@ export default {
     },
     readOnly: function () {
       this.readOnly ? this.quill.disable() : this.quill.enable();
+    },
+    addTempHighlight: function () {
+      if (this.addTempHighlight.rangeIndex !== null && this.addTempHighlight.rangeLength !== null) {
+          this.quill.formatText(this.addTempHighlight.rangeIndex, this.addTempHighlight.rangeLength, 'tempHighlight', true);
+      }
+    },
+    addSuggestionHighlight: function () {
+      if (this.addSuggestionHighlight.rangeIndex !== null && this.addSuggestionHighlight.rangeLength !== null) {
+        this.quill.formatText(this.addSuggestionHighlight.rangeIndex, this.addSuggestionHighlight.rangeLength, 'suggestionHighlight', true);
+      }
     },
   },
 
