@@ -70,12 +70,12 @@ export default {
       }
     },
     addSuggestionHighlight: {
-      type: Object,
+      type: Array,
       default () {
-        return {
+        return [{
           rangeIndex: null,
           rangeLength: null,
-        }
+        }]
       }
     },
   },
@@ -161,8 +161,12 @@ export default {
       }
     },
     addSuggestionHighlight: function () {
-      if (this.addSuggestionHighlight.rangeIndex !== null && this.addSuggestionHighlight.rangeLength !== null) {
-        this.quill.formatText(this.addSuggestionHighlight.rangeIndex, this.addSuggestionHighlight.rangeLength, 'suggestionHighlight', true);
+      if (this.addSuggestionHighlight.length > 0) {
+        for (let i = 0; i < this.addSuggestionHighlight.length; i++) {
+          if (this.addSuggestionHighlight[i].rangeIndex !== null && this.addSuggestionHighlight[i].rangeLength !== null) {
+            this.quill.formatText(this.addSuggestionHighlight[i].rangeIndex, this.addSuggestionHighlight[i].rangeLength, 'suggestionHighlight', true);
+          }
+        }
       }
     },
   },
