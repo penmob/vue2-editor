@@ -186,6 +186,17 @@ export default {
   methods: {
     saveContent: function (value) {
       this.$emit('save-content', this.editor.innerHTML)
+    },
+    removeTempHighlights: function () {
+      console.log('in removeTempHighlights vue2-editor');
+      console.log(this);
+      console.log(this.quill);
+      console.log(this.quill.getContents());
+
+      this.quill.formatText(0, this.quill.getLength(), 'tempHighlight', false);
+
+      console.log('removed:');
+      console.log(this.quill.getContents());
     }
   }
 }
