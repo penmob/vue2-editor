@@ -187,7 +187,10 @@ export default {
     saveContent: function (value) {
       this.$emit('save-content', this.editor.innerHTML)
     },
-    removeTempHighlights: function () {
+  },
+
+  events: {
+    'removeTempHighlights': function () {
       console.log('in removeTempHighlights vue2-editor');
       console.log(this);
       console.log(this.quill);
