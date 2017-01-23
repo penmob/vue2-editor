@@ -70,12 +70,9 @@ export default {
       }
     },
     removeTempHighlight: {
-      type: Object,
+      type: Boolean,
       default () {
-        return {
-          rangeIndex: null,
-          rangeLength: null,
-        }
+        return false
       }
     },
     addSuggestionHighlight: {
@@ -170,8 +167,9 @@ export default {
       }
     },
     removeTempHighlight: function () {
-      if (this.removeTempHighlight.rangeIndex !== null && this.removeTempHighlight.rangeLength !== null) {
-        this.quill.formatText(this.removeTempHighlight.rangeIndex, this.removeTempHighlight.rangeLength, 'tempHighlight', false);
+      if (this.removeTempHighlight) {
+        this.quill.formatText(0, this.quill.getLength(), 'tempHighlight', false);
+        this.$emit('tempHighlightRemoved');
       }
     },
     addSuggestionHighlight: function () {
