@@ -69,6 +69,15 @@ export default {
         }
       }
     },
+    removeTempHighlight: {
+      type: Object,
+      default () {
+        return {
+          rangeIndex: null,
+          rangeLength: null,
+        }
+      }
+    },
     addSuggestionHighlight: {
       type: Array,
       default () {
@@ -157,7 +166,12 @@ export default {
     },
     addTempHighlight: function () {
       if (this.addTempHighlight.rangeIndex !== null && this.addTempHighlight.rangeLength !== null) {
-          this.quill.formatText(this.addTempHighlight.rangeIndex, this.addTempHighlight.rangeLength, 'tempHighlight', true);
+        this.quill.formatText(this.addTempHighlight.rangeIndex, this.addTempHighlight.rangeLength, 'tempHighlight', true);
+      }
+    },
+    removeTempHighlight: function () {
+      if (this.removeTempHighlight.rangeIndex !== null && this.removeTempHighlight.rangeLength !== null) {
+        this.quill.formatText(this.removeTempHighlight.rangeIndex, this.removeTempHighlight.rangeLength, 'tempHighlight', false);
       }
     },
     addSuggestionHighlight: function () {
